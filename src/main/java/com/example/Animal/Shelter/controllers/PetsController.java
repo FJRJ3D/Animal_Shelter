@@ -12,7 +12,7 @@ public class PetsController {
 
   @Autowired PetsService petsService;
 
-  @PostMapping(path = "pets")
+  @PostMapping(path = "/pets")
   public Pets createPets(@RequestBody Pets pets){
     return petsService.createPets(pets);
   }

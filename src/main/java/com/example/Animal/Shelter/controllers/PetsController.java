@@ -12,8 +12,8 @@ public class PetsController {
 
   @Autowired PetsService petsService;
 
-  @PutMapping(path="/pets/{id}")
-  public void updatePets(@RequestBody Pets pets, @PathVariable Integer id){
+  @PutMapping(path = "/pets/{id}")
+  public void updatePets(@RequestBody Pets pets, @PathVariable Integer id) {
     petsService.updatePets(pets, id);
   }
 }

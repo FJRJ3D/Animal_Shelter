@@ -14,4 +14,8 @@ public class PetsService {
     pets.setId(id);
     iPetsRepository.save(pets);
   }
+
+  public void deletePets(Integer id) {
+    iPetsRepository.deleteById(id);
+  }
 }

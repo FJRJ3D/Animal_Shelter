@@ -5,6 +5,8 @@ import com.example.Animal.Shelter.services.PetsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/as")
@@ -15,6 +17,11 @@ public class PetsController {
   @PostMapping(path = "/pets")
   public Pets createPets(@RequestBody Pets pets){
     return petsService.createPets(pets);
+  }
+
+  @GetMapping(path = "/pets")
+  public ArrayList<Pets> getAllPets(){
+    return petsService.getAllPets();
   }
 
   @PutMapping(path = "/pets/{id}")

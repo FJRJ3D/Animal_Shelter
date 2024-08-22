@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/as")
@@ -22,6 +24,11 @@ public class PetsController {
   @GetMapping(path = "/pets")
   public ArrayList<Pets> getAllPets(){
     return petsService.getAllPets();
+  }
+
+  @GetMapping(path = "/pets/{id}")
+  public Optional<Pets> getPetsById(@PathVariable Integer id){
+    return petsService.getPetsById(id);
   }
 
   @PutMapping(path = "/pets/{id}")

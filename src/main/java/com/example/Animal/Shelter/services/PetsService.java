@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+import java.util.Optional;
+
 @Service
 public class PetsService {
 
@@ -18,6 +20,10 @@ public class PetsService {
 
   public ArrayList<Pets> getAllPets(){
     return (ArrayList<Pets>) iPetsRepository.findAll();
+  }
+
+  public Optional<Pets> getPetsById(Integer id){
+    return iPetsRepository.findById(id);
   }
 
   public void updatePets(Pets pets, Integer id) {

@@ -10,6 +10,10 @@ public class PetsService {
 
   @Autowired IPetsRepository iPetsRepository;
 
+  public Pets createPets(Pets pets){
+    return iPetsRepository.save(pets);
+  }
+
   public void updatePets(Pets pets, Integer id) {
     pets.setId(id);
     iPetsRepository.save(pets);

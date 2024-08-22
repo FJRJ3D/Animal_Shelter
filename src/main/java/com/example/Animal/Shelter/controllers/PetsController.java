@@ -15,5 +15,4 @@ public class PetsController {
   public void deletePets(@PathVariable Integer id) {
     petsService.deletePets(id);
   }
-  public void
 }

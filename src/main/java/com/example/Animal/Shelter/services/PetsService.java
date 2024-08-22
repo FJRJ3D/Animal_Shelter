@@ -7,8 +7,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class PetsService {
 
-    @Autowired
-    IPetsRepository iPetsRepository;
+  @Autowired IPetsRepository iPetsRepository;
 
-
+  public void deletePets(Integer id) {
+    iPetsRepository.deleteById(id);
+  }
 }

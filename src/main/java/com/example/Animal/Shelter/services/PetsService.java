@@ -5,13 +5,15 @@ import com.example.Animal.Shelter.repositories.IPetsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PetsService {
 
   @Autowired IPetsRepository iPetsRepository;
 
-  public void getPetsById(Integer id){
-    iPetsRepository.findById(id);
+  public Optional<Pets> getPetsById(Integer id){
+    return iPetsRepository.findById(id);
   }
 
   public void updatePets(Pets pets, Integer id) {

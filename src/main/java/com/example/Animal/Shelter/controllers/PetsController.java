@@ -12,6 +12,11 @@ public class PetsController {
 
   @Autowired PetsService petsService;
 
+  @GetMapping(path = "/pets/{id}")
+  public void getPetsById(@PathVariable Integer id){
+    petsService.getPetsById(id);
+  }
+
   @PutMapping(path = "/pets/{id}")
   public void updatePets(@RequestBody Pets pets, @PathVariable Integer id) {
     petsService.updatePets(pets, id);

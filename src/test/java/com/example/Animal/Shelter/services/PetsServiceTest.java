@@ -64,7 +64,17 @@ class PetsServiceTest {
 
           Pets result = petsService.createPets(petLolo);
 
+          assertEquals(1, result.getId());
+          assertEquals("Lolo", result.getName());
+          assertEquals("https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/202931.jpg", result.getPicture());
           assertEquals("Dog", result.getAnimalType());
+          assertEquals("Rottweiler", result.getRace());
+          assertEquals(LocalDate.of(2024,8, 17), result.getBirthDate());
+          assertFalse(result.isGender());
+          assertFalse(result.isStatus());
+          assertFalse(result.isSterilized());
+          assertEquals(LocalDate.of(2024,9,5), result.getTimeInTheShelter());
+          assertEquals("Very affectionate and playful puppy", result.getDescription());
       }
 
       @Test

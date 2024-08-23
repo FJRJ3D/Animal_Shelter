@@ -60,6 +60,11 @@ class PetsServiceTest {
 
       @Test
       void createPets() {
+          when(iPetsRepository.save(ArgumentMatchers.any(Pets.class))).thenReturn(petLolo);
+
+          Pets result = petsService.createPets(petLolo);
+
+          assertEquals("Dog", result.getAnimalType());
       }
 
       @Test

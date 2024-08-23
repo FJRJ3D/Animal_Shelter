@@ -35,6 +35,7 @@ public class PetsController {
   public void updatePets(@RequestBody Pets pets, @PathVariable Integer id) {
     petsService.updatePets(pets, id);
   }
+
   @DeleteMapping(path = "/pets/{id}")
   public void deletePets(@PathVariable Integer id) {
     petsService.deletePets(id);

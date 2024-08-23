@@ -75,7 +75,18 @@ class PetsServiceTest {
 
           Optional<Pets> result = petsService.getPetsById(0);
 
-
+          assertEquals(1, result.get().getId());
+          assertEquals("Lolo", result.get().getName());
+          assertEquals("https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/" +
+                  "202931.jpg", result.get().getPicture());
+          assertEquals("Dog", result.get().getAnimalType());
+          assertEquals("Rottweiler", result.get().getRace());
+          assertEquals(LocalDate.of(2024,8, 17), result.get().getBirthDate());
+          assertFalse(result.get().isGender());
+          assertFalse(result.get().isStatus());
+          assertFalse(result.get().isSterilized());
+          assertEquals(LocalDate.of(2024,9,5), result.get().getTimeInTheShelter());
+          assertEquals("Very affectionate and playful puppy", result.get().getDescription());
       }
 
       @Test

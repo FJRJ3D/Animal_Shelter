@@ -64,6 +64,11 @@ class PetsServiceTest {
 
       @Test
       void getAllPets() {
+        when(iPetsRepository.findAll()).thenReturn(petsList);
+
+        List<Pets> result = petsService.getAllPets();
+
+        assertEquals(2, result.size());
       }
 
       @Test

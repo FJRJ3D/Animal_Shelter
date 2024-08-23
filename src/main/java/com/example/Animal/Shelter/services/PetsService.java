@@ -5,10 +5,26 @@ import com.example.Animal.Shelter.repositories.IPetsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
+import java.util.Optional;
+
 @Service
 public class PetsService {
 
   @Autowired IPetsRepository iPetsRepository;
+
+  public Pets createPets(Pets pets){
+    return iPetsRepository.save(pets);
+  }
+
+  public ArrayList<Pets> getAllPets(){
+    return (ArrayList<Pets>) iPetsRepository.findAll();
+  }
+
+  public Optional<Pets> getPetsById(Integer id){
+    return iPetsRepository.findById(id);
+  }
 
   public void updatePets(Pets pets, Integer id) {
     pets.setId(id);

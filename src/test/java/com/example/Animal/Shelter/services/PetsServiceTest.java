@@ -1,6 +1,7 @@
 package com.example.Animal.Shelter.services;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 import com.example.Animal.Shelter.models.Pets;
 import com.example.Animal.Shelter.repositories.IPetsRepository;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -26,31 +28,31 @@ class PetsServiceTest {
   @BeforeEach
   public void setUp() {
     MockitoAnnotations.openMocks(this);
-    Pets petLolo = new Pets();
+    petLolo = new Pets();
     petLolo.setId(1);
     petLolo.setName("Lolo");
     petLolo.setPicture("https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/202931.jpg");
     petLolo.setAnimalType("Dog");
     petLolo.setRace("Rottweiler");
-    petLolo.setBirthDate(LocalDate.of(2024,8, 17);
+    petLolo.setBirthDate(LocalDate.of(2024,8, 17));
     petLolo.setGender(false);
     petLolo.setStatus(false);
     petLolo.setSterilized(false);
     petLolo.setTimeInTheShelter(LocalDate.of(2024,9,5));
     petLolo.setDescription("Very affectionate and playful puppy");
 
-    Pets petPitu = new Pets();
+    petPitu = new Pets();
     petPitu.setId(2);
     petPitu.setName("Pitu");
-    petLolo.setPicture("https://img2.rtve.es/i/?w=1600&i=1618587961630.jpg");
-    petLolo.setAnimalType("Cat");
-    petLolo.setRace("Orange tabby");
-    petLolo.setBirthDate(LocalDate.of(2022,4, 18);
-    petLolo.setGender(false);
-    petLolo.setStatus(false);
-    petLolo.setSterilized(true);
-    petLolo.setTimeInTheShelter(LocalDate.of(2023,5,5));
-    petLolo.setDescription("Playful cat");
+    petPitu.setPicture("https://img2.rtve.es/i/?w=1600&i=1618587961630.jpg");
+    petPitu.setAnimalType("Cat");
+    petPitu.setRace("Orange tabby");
+    petPitu.setBirthDate(LocalDate.of(2022,4, 18));
+    petPitu.setGender(false);
+    petPitu.setStatus(false);
+    petPitu.setSterilized(true);
+    petPitu.setTimeInTheShelter(LocalDate.of(2023,5,5));
+    petPitu.setDescription("Playful cat");
 
     petsList.add(petLolo);
     petsList.add(petPitu);

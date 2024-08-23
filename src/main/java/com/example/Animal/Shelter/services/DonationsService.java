@@ -33,5 +33,9 @@ public class DonationsService {
         iDonationsRepository.save(donations);
     }
 
+    public void deleteDonations(int id) {
+        iDonationsRepository.deleteById(id);
+    }
+
 
 }

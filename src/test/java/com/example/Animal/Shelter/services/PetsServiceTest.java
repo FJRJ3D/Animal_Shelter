@@ -8,7 +8,6 @@ import com.example.Animal.Shelter.repositories.IPetsRepository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -59,9 +58,23 @@ class PetsServiceTest {
   }
 
   @Test
-  public void deletePets() {
-    when(iPetsRepository.findById(1)).thenReturn(Optional.of(petLolo));
-    petsService.deletePets(1);
-    verify(iPetsRepository, times(1)).deleteById(1);
+  public void updatePets() {
+    when(iPetsRepository.save(any(Pets.class))).thenReturn(petPitu);
+    Pets update = petPitu;
+    update.setRace("Orange");
+
+    petsService.updatePets(update, 2);
+    assertEquals(2, update.getId());
+    assertEquals("Pitu", update.getName());
+    assertEquals("https://img2.rtve.es/i/?w=1600&i=1618587961630.jpg", update.getPicture());
+    assertEquals("Cat", update.getAnimalType());
+    assertEquals(LocalDate.of(2022, 4, 18), update.getBirthDate());
+    assertEquals(false, update.isGender());
+    assertEquals(false, update.isStatus());
+    assertEquals(true, update.isSterilized());
+    assertEquals(LocalDate.of(2023, 5, 5), update.getTimeInTheShelter());
+    assertEquals("Playful cat", update.getDescription());
+
+    verify(iPetsRepository, times(1)).save(update);
   }
 }

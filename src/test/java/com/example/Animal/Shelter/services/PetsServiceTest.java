@@ -82,6 +82,27 @@ class PetsServiceTest {
 
       @Test
       void getAllPets() {
+        when(iPetsRepository.findAll()).thenReturn(petsList);
+
+        List<Pets> result = petsService.getAllPets();
+
+        assertEquals(2, result.size());
+
+        assertEquals(1, result.get(0).getId());
+        assertEquals("Lolo", result.get(0).getName());
+        assertEquals("https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/" +
+                  "202931.jpg", result.get(0).getPicture());
+        assertEquals("Dog", result.get(0).getAnimalType());
+        assertEquals("Rottweiler", result.get(0).getRace());
+        assertEquals(LocalDate.of(2024,8, 17), result.get(0).getBirthDate());
+        assertFalse(result.get(0).isGender());
+        assertFalse(result.get(0).isStatus());
+        assertFalse(result.get(0).isSterilized());
+        assertEquals(LocalDate.of(2024,9,5), result.get(0).getTimeInTheShelter());
+        assertEquals("Very affectionate and playful puppy", result.get(0).getDescription());
+
+        assertEquals(2, result.get(1).getId());
+        assertEquals("Pitu", result.get(1).getName());
       }
 
       @Test

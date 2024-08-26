@@ -1,6 +1,7 @@
 package com.example.Animal.Shelter.controllers;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 import com.example.Animal.Shelter.models.Pets;
 import com.example.Animal.Shelter.services.PetsService;
@@ -14,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @SpringBootTest
@@ -24,7 +26,7 @@ class PetsControllerTest {
 
   private Pets petLolo;
   private Pets petPitu;
-  private List<Pets> petsList = new ArrayList<>();
+  private ArrayList<Pets> petsList = new ArrayList<>();
 
   @BeforeEach
   public void setUp() {
@@ -66,7 +68,11 @@ class PetsControllerTest {
   void createPets() {}
 
   @Test
-  void getAllPets() {}
+  void getAllPets() throws Exception {
+    when(petsService.getAllPets()).thenReturn(petsList);
+
+    mockMvc.perform(MockMvcRequestBuilders.get(""))
+  }
 
   @Test
   void getPetsById() {}

@@ -28,5 +28,14 @@ public class DonationsService {
         return Optional.of(donations);
     }
 
+    public void updateDonations(Donations donations, int id) {
+        donations.setId(id);
+        iDonationsRepository.save(donations);
+    }
+
+    public void deleteDonations(int id) {
+        iDonationsRepository.deleteById(id);
+    }
+
 
 }

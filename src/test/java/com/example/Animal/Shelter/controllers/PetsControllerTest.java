@@ -9,7 +9,6 @@ import com.example.Animal.Shelter.models.Pets;
 import com.example.Animal.Shelter.services.PetsService;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +29,7 @@ class PetsControllerTest {
 
   private Pets petLolo;
   private Pets petPitu;
-  private List<Pets> petsList = new ArrayList<>();
+  private ArrayList<Pets> petsList = new ArrayList<>();
 
   @BeforeEach
   public void setUp() {
@@ -72,7 +71,42 @@ class PetsControllerTest {
   void createPets() {}
 
   @Test
-  void getAllPets() {}
+  void getAllPets() throws Exception {
+    when(petsService.getAllPets()).thenReturn(petsList);
+
+    mockMvc.perform(MockMvcRequestBuilders.get("/api/as/pets"))
+            .andExpect(status().isOk())
+            .andExpect(content().json(
+           "[\n" +
+                   "    {\n" +
+                   "        \"id\": 1,\n" +
+                   "        \"name\": \"Lolo\",\n" +
+                   "        \"picture\": \"https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/" +
+                   "w_1600,c_limit/202931.jpg\",\n" +
+                   "        \"animalType\": \"Dog\",\n" +
+                   "        \"race\": \"Rottweiler\",\n" +
+                   "        \"gender\": false,\n" +
+                   "        \"status\": false,\n" +
+                   "        \"birthDate\": \"17-08-2024\",\n" +
+                   "        \"sterilized\": false,\n" +
+                   "        \"timeInTheShelter\": \"05-09-2024\",\n" +
+                   "        \"description\": \"Very affectionate and playful puppy\"\n" +
+                   "    },\n" +
+                   "    {\n" +
+                   "        \"id\": 2,\n" +
+                   "        \"name\": \"Pitu\",\n" +
+                   "        \"picture\": \"https://img2.rtve.es/i/?w=1600&i=1618587961630.jpg\",\n" +
+                   "        \"animalType\": \"Cat\",\n" +
+                   "        \"race\": \"Orange tabby\",\n" +
+                   "        \"gender\": false,\n" +
+                   "        \"status\": false,\n" +
+                   "        \"birthDate\": \"18-04-2022\",\n" +
+                   "        \"sterilized\": true,\n" +
+                   "        \"timeInTheShelter\": \"05-05-2023\",\n" +
+                   "        \"description\": \"Playful cat\"\n" +
+                   "    }\n" +
+                   "]"));
+  }
 
   @Test
   void getPetsById() throws Exception {

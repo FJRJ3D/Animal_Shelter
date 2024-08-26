@@ -34,11 +34,11 @@ class PetsServiceTest {
     petLolo.setPicture("https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/202931.jpg");
     petLolo.setAnimalType("Dog");
     petLolo.setRace("Rottweiler");
-    petLolo.setBirthDate(LocalDate.of(2024,8, 17));
+    petLolo.setBirthDate(LocalDate.of(2024, 8, 17));
     petLolo.setGender(false);
     petLolo.setStatus(false);
     petLolo.setSterilized(false);
-    petLolo.setTimeInTheShelter(LocalDate.of(2024,9,5));
+    petLolo.setTimeInTheShelter(LocalDate.of(2024, 9, 5));
     petLolo.setDescription("Very affectionate and playful puppy");
 
     petPitu = new Pets();
@@ -47,11 +47,11 @@ class PetsServiceTest {
     petPitu.setPicture("https://img2.rtve.es/i/?w=1600&i=1618587961630.jpg");
     petPitu.setAnimalType("Cat");
     petPitu.setRace("Orange tabby");
-    petPitu.setBirthDate(LocalDate.of(2022,4, 18));
+    petPitu.setBirthDate(LocalDate.of(2022, 4, 18));
     petPitu.setGender(false);
     petPitu.setStatus(false);
     petPitu.setSterilized(true);
-    petPitu.setTimeInTheShelter(LocalDate.of(2023,5,5));
+    petPitu.setTimeInTheShelter(LocalDate.of(2023, 5, 5));
     petPitu.setDescription("Playful cat");
 
     petsList.add(petLolo);
@@ -117,11 +117,26 @@ class PetsServiceTest {
           assertEquals(LocalDate.of(2024,9,5), result.get().getTimeInTheShelter());
           assertEquals("Very affectionate and playful puppy", result.get().getDescription());
       }
-
       @Test
-      void updatePets() {
-      }
+    void updatePets() {
+        when(iPetsRepository.save(any(Pets.class))).thenReturn(petPitu);
+        Pets update = petPitu;
+        update.setRace("Orange");
 
+        petsService.updatePets(update, 2);
+        assertEquals(2, update.getId());
+        assertEquals("Pitu", update.getName());
+        assertEquals("https://img2.rtve.es/i/?w=1600&i=1618587961630.jpg", update.getPicture());
+        assertEquals("Cat", update.getAnimalType());
+        assertEquals(LocalDate.of(2022, 4, 18), update.getBirthDate());
+        assertEquals(false, update.isGender());
+        assertEquals(false, update.isStatus());
+        assertEquals(true, update.isSterilized());
+        assertEquals(LocalDate.of(2023, 5, 5), update.getTimeInTheShelter());
+        assertEquals("Playful cat", update.getDescription());
+
+        verify(iPetsRepository, times(1)).save(update);
+    }
     @Test
     void deletePets() {
         when(iPetsRepository.findById(1)).thenReturn(Optional.of(petLolo));

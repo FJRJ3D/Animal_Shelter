@@ -17,70 +17,63 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @SpringBootTest
-
 class PetsControllerTest {
-    @Mock
-    private PetsService petsService;
-    @InjectMocks
-    private PetsController petsController;
-    private MockMvc mockMvc;
+  @Mock private PetsService petsService;
+  @InjectMocks private PetsController petsController;
+  private MockMvc mockMvc;
 
-    private Pets petLolo;
-    private Pets petPitu;
-    private List<Pets> petsList = new ArrayList<>();
+  private Pets petLolo;
+  private Pets petPitu;
+  private List<Pets> petsList = new ArrayList<>();
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(petsController).build();
+  @BeforeEach
+  public void setUp() {
+    MockitoAnnotations.openMocks(this);
+    mockMvc = MockMvcBuilders.standaloneSetup(petsController).build();
 
-        petLolo = new Pets();
-        petLolo.setId(1);
-        petLolo.setName("Lolo");
-        petLolo.setPicture("https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/202931.jpg");
-        petLolo.setAnimalType("Dog");
-        petLolo.setRace("Rottweiler");
-        petLolo.setBirthDate(LocalDate.of(2024,8, 17));
-        petLolo.setGender(false);
-        petLolo.setStatus(false);
-        petLolo.setSterilized(false);
-        petLolo.setTimeInTheShelter(LocalDate.of(2024,9,5));
-        petLolo.setDescription("Very affectionate and playful puppy");
+    petLolo = new Pets();
+    petLolo.setId(1);
+    petLolo.setName("Lolo");
+    petLolo.setPicture(
+        "https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/202931.jpg");
+    petLolo.setAnimalType("Dog");
+    petLolo.setRace("Rottweiler");
+    petLolo.setBirthDate(LocalDate.of(2024, 8, 17));
+    petLolo.setGender(false);
+    petLolo.setStatus(false);
+    petLolo.setSterilized(false);
+    petLolo.setTimeInTheShelter(LocalDate.of(2024, 9, 5));
+    petLolo.setDescription("Very affectionate and playful puppy");
 
-        petPitu = new Pets();
-        petPitu.setId(2);
-        petPitu.setName("Pitu");
-        petPitu.setPicture("https://img2.rtve.es/i/?w=1600&i=1618587961630.jpg");
-        petPitu.setAnimalType("Cat");
-        petPitu.setRace("Orange tabby");
-        petPitu.setBirthDate(LocalDate.of(2022,4, 18));
-        petPitu.setGender(false);
-        petPitu.setStatus(false);
-        petPitu.setSterilized(true);
-        petPitu.setTimeInTheShelter(LocalDate.of(2023,5,5));
-        petPitu.setDescription("Playful cat");
+    petPitu = new Pets();
+    petPitu.setId(2);
+    petPitu.setName("Pitu");
+    petPitu.setPicture("https://img2.rtve.es/i/?w=1600&i=1618587961630.jpg");
+    petPitu.setAnimalType("Cat");
+    petPitu.setRace("Orange tabby");
+    petPitu.setBirthDate(LocalDate.of(2022, 4, 18));
+    petPitu.setGender(false);
+    petPitu.setStatus(false);
+    petPitu.setSterilized(true);
+    petPitu.setTimeInTheShelter(LocalDate.of(2023, 5, 5));
+    petPitu.setDescription("Playful cat");
 
-        petsList.add(petLolo);
-        petsList.add(petPitu);
-    }
+    petsList.add(petLolo);
+    petsList.add(petPitu);
+  }
 
-    @Test
-    void createPets() {
-    }
+  @Test
+  void createPets() {}
 
-    @Test
-    void getAllPets() {
-    }
+  @Test
+  void getAllPets() {}
 
-    @Test
-    void getPetsById() {
-    }
+  @Test
+  void getPetsById() {}
 
-    @Test
-    void updatePets() {
-    }
+  @Test
+  void updatePets() {}
 
-    @Test
-    void deletePets() {
-    }
+  @Test
+  void deletePets() {}
 }

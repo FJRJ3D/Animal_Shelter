@@ -1,17 +1,14 @@
 package com.example.Animal.Shelter.services;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import com.example.Animal.Shelter.models.Pets;
 import com.example.Animal.Shelter.repositories.IPetsRepository;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -61,52 +58,47 @@ class PetsServiceTest {
     petsList.add(petPitu);
   }
 
-      @Test
-      void createPets() {
-          when(iPetsRepository.save(ArgumentMatchers.any(Pets.class))).thenReturn(petLolo);
+  @Test
+  void createPets() {
+      when(iPetsRepository.save(ArgumentMatchers.any(Pets.class))).thenReturn(petLolo);
 
-          Pets result = petsService.createPets(petLolo);
+      Pets result = petsService.createPets(petLolo);
+      assertEquals(1, result.getId());
+      assertEquals("Lolo", result.getName());
+      assertEquals("https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/202931.jpg", result.getPicture());
+      assertEquals("Dog", result.getAnimalType());
+      assertEquals("Rottweiler", result.getRace());
+      assertEquals(LocalDate.of(2024,8, 17), result.getBirthDate());
+      assertFalse(result.isGender());
+      assertFalse(result.isStatus());
+      assertFalse(result.isSterilized());
+      assertEquals(LocalDate.of(2024,9,5), result.getTimeInTheShelter());
+      assertEquals("Very affectionate and playful puppy", result.getDescription());
+      }
+   @Test
+    void getAllPets() {
+      when(iPetsRepository.findAll()).thenReturn(petsList);
 
-          assertEquals(1, result.getId());
-          assertEquals("Lolo", result.getName());
-          assertEquals("https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/" +
-                                "202931.jpg", result.getPicture());
-          assertEquals("Dog", result.getAnimalType());
-          assertEquals("Rottweiler", result.getRace());
-          assertEquals(LocalDate.of(2024,8, 17), result.getBirthDate());
-          assertFalse(result.isGender());
-          assertFalse(result.isStatus());
-          assertFalse(result.isSterilized());
-          assertEquals(LocalDate.of(2024,9,5), result.getTimeInTheShelter());
-          assertEquals("Very affectionate and playful puppy", result.getDescription());
+      List<Pets> result = petsService.getAllPets();
+
+      assertEquals(2, result.size());
+      assertEquals(1, result.get(0).getId());
+      assertEquals("Lolo", result.get(0).getName());
+      assertEquals("https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/202931.jpg", result.get(0).getPicture());
+      assertEquals("Dog", result.get(0).getAnimalType());
+      assertEquals("Rottweiler", result.get(0).getRace());
+      assertEquals(LocalDate.of(2024,8, 17), result.get(0).getBirthDate());
+      assertFalse(result.get(0).isGender());
+      assertFalse(result.get(0).isStatus());
+      assertFalse(result.get(0).isSterilized());
+      assertEquals(LocalDate.of(2024,9,5), result.get(0).getTimeInTheShelter());
+      assertEquals("Very affectionate and playful puppy", result.get(0).getDescription());
+
+      assertEquals(2, result.get(1).getId());
+      assertEquals("Pitu", result.get(1).getName());
       }
 
-      @Test
-      void getAllPets() {
-        when(iPetsRepository.findAll()).thenReturn(petsList);
-
-        List<Pets> result = petsService.getAllPets();
-
-        assertEquals(2, result.size());
-
-        assertEquals(1, result.get(0).getId());
-        assertEquals("Lolo", result.get(0).getName());
-        assertEquals("https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/" +
-                  "202931.jpg", result.get(0).getPicture());
-        assertEquals("Dog", result.get(0).getAnimalType());
-        assertEquals("Rottweiler", result.get(0).getRace());
-        assertEquals(LocalDate.of(2024,8, 17), result.get(0).getBirthDate());
-        assertFalse(result.get(0).isGender());
-        assertFalse(result.get(0).isStatus());
-        assertFalse(result.get(0).isSterilized());
-        assertEquals(LocalDate.of(2024,9,5), result.get(0).getTimeInTheShelter());
-        assertEquals("Very affectionate and playful puppy", result.get(0).getDescription());
-
-        assertEquals(2, result.get(1).getId());
-        assertEquals("Pitu", result.get(1).getName());
-      }
-
-      @Test
+    @Test
       void getPetsById() {
           when(iPetsRepository.findById(anyInt())).thenReturn(Optional.of(petLolo));
 
@@ -130,7 +122,10 @@ class PetsServiceTest {
       void updatePets() {
       }
 
-      @Test
-      void deletePets() {
-      }
+    @Test
+    void deletePets() {
+        when(iPetsRepository.findById(1)).thenReturn(Optional.of(petLolo));
+        petsService.deletePets(1);
+        verify(iPetsRepository, times(1)).deleteById(1);
+    }
 }

@@ -1,8 +1,10 @@
 package com.example.Animal.Shelter.controllers;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.example.Animal.Shelter.models.Pets;
 import com.example.Animal.Shelter.services.PetsService;
@@ -15,6 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -65,10 +68,44 @@ class PetsControllerTest {
   }
 
   @Test
-  void createPets() {
-    when(petsService.createPets(any(Pets.class))).thenReturn(petPitu);
+  void createPets() throws Exception {
+    when(petsService.createPets(any(Pets.class))).thenReturn(petLolo);
 
-
+    String petsJson =
+            "{\"id\": 1,\n"
+            +"\"name\": \"Lolo\",\n"
+            +"\"picture\": \"https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/" +
+                    "202931.jpg\",\n"
+            +"\"animalType\": \"Dog\",\n"
+            +"\"race\": \"Rottweiler\",\n"
+            +"\"gender\": false,\n"
+            +"\"status\": false,\n"
+            +"\"birthDate\": \"17-08-2024\",\n"
+            +"\"sterilized\": false,\n"
+            +"\"timeInTheShelter\": \"05-09-2024\",\n"
+            +"\"description\": \"Very affectionate and playful puppy\"}";
+    mockMvc
+       .perform(
+           post("/api/as/pets")
+                 .contentType(MediaType.APPLICATION_JSON)
+                 .content(petsJson))
+       .andExpect(status().isOk())
+       .andExpect(
+           content()
+               .json(
+                  "{\"id\": 1,\n"
+                  +"\"name\": \"Lolo\",\n"
+                  +"\"picture\": \"https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/" +
+                          "202931.jpg\",\n"
+                  +"\"animalType\": \"Dog\",\n"
+                  +"\"race\": \"Rottweiler\",\n"
+                  +"\"gender\": false,\n"
+                  +"\"status\": false,\n"
+                  +"\"birthDate\": \"17-08-2024\",\n"
+                  +"\"sterilized\": false,\n"
+                  +"\"timeInTheShelter\": \"05-09-2024\",\n"
+                  +"\"description\": \"Very affectionate and playful puppy\"}"))
+    ;
   }
 
   @Test

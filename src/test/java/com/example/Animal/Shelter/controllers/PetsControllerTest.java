@@ -1,21 +1,22 @@
 package com.example.Animal.Shelter.controllers;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.example.Animal.Shelter.models.Pets;
-import com.example.Animal.Shelter.repositories.IPetsRepository;
 import com.example.Animal.Shelter.services.PetsService;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+@SpringBootTest
 
 class PetsControllerTest {
     @Mock

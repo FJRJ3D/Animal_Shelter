@@ -1,6 +1,8 @@
 package com.example.Animal.Shelter.controllers;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 import com.example.Animal.Shelter.models.Pets;
 import com.example.Animal.Shelter.services.PetsService;
@@ -63,7 +65,11 @@ class PetsControllerTest {
   }
 
   @Test
-  void createPets() {}
+  void createPets() {
+    when(petsService.createPets(any(Pets.class))).thenReturn(petPitu);
+
+
+  }
 
   @Test
   void getAllPets() {}

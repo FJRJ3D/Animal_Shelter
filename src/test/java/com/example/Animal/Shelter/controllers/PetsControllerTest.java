@@ -104,8 +104,7 @@ class PetsControllerTest {
                   +"\"birthDate\": \"17-08-2024\",\n"
                   +"\"sterilized\": false,\n"
                   +"\"timeInTheShelter\": \"05-09-2024\",\n"
-                  +"\"description\": \"Very affectionate and playful puppy\"}"))
-    ;
+                  +"\"description\": \"Very affectionate and playful puppy\"}"));
   }
 
   @Test

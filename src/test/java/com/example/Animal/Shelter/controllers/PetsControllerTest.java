@@ -81,8 +81,18 @@ class PetsControllerTest {
     mockMvc.perform(MockMvcRequestBuilders.get("/api/as/pets/1"))
             .andExpect(status().isOk())
             .andExpect(content().json(
-
-            ));
+             "{\"id\": 1,\n"
+                    +"\"name\": \"Lolo\",\n"
+                    +"\"picture\": \"https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/" +
+                    "202931.jpg\",\n"
+                    +"\"animalType\": \"Dog\",\n"
+                    +"\"race\": \"Rottweiler\",\n"
+                    +"\"gender\": false,\n"
+                    +"\"status\": false,\n"
+                    +"\"birthDate\": \"17-08-2024\",\n"
+                    +"\"sterilized\": false,\n"
+                    +"\"timeInTheShelter\": \"05-09-2024\",\n"
+                    +"\"description\": \"Very affectionate and playful puppy\"}"));
   }
 
   @Test

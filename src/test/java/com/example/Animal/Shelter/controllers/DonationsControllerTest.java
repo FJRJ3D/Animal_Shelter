@@ -36,7 +36,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 class DonationsControllerTest {
     @Mock 
@@ -113,7 +112,21 @@ class DonationsControllerTest {
     }
 
     @Test
-    void updateDonations() {
+    void updateDonations() throws Exception {
+        Donations updatedDonations = new Donations();
+        updatedDonations.setId(1);
+        updatedDonations.setQuantity(40000);
+        updatedDonations.setDate(LocalDate.of(2023,05,12));
+        updatedDonations.setDonor("Bruce Wayne");
+
+        doNothing().when(donationsService).updateDonations(updatedDonations, 1);
+
+        mockMvc.perform(put("/api/as/Donations/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"id\":1,\"quantity\":40000,\"date\":\"2023-05-12\",\"donor\":\"Bruce Wayne\"}"))
+                .andExpect(status().isOk());
+
+                
     }
 
     @Test

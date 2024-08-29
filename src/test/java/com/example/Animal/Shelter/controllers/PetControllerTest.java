@@ -7,7 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.Animal.Shelter.models.Pets;
+import com.example.Animal.Shelter.models.Pet;
 import com.example.Animal.Shelter.services.PetsService;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,21 +24,21 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @SpringBootTest
-class PetsControllerTest {
+class PetControllerTest {
   @Mock private PetsService petsService;
   @InjectMocks private PetsController petsController;
   private MockMvc mockMvc;
 
-  private Pets petLolo;
-  private Pets petPitu;
-  private ArrayList<Pets> petsList = new ArrayList<>();
+  private Pet petLolo;
+  private Pet petPitu;
+  private ArrayList<Pet> petList = new ArrayList<>();
 
   @BeforeEach
   public void setUp() {
     MockitoAnnotations.openMocks(this);
     mockMvc = MockMvcBuilders.standaloneSetup(petsController).build();
 
-    petLolo = new Pets();
+    petLolo = new Pet();
     petLolo.setId(1);
     petLolo.setName("Lolo");
     petLolo.setPicture(
@@ -52,7 +52,7 @@ class PetsControllerTest {
     petLolo.setTimeInTheShelter(LocalDate.of(2024, 9, 5));
     petLolo.setDescription("Very affectionate and playful puppy");
 
-    petPitu = new Pets();
+    petPitu = new Pet();
     petPitu.setId(2);
     petPitu.setName("Pitu");
     petPitu.setPicture("https://img2.rtve.es/i/?w=1600&i=1618587961630.jpg");
@@ -65,13 +65,13 @@ class PetsControllerTest {
     petPitu.setTimeInTheShelter(LocalDate.of(2023, 5, 5));
     petPitu.setDescription("Playful cat");
 
-    petsList.add(petLolo);
-    petsList.add(petPitu);
+    petList.add(petLolo);
+    petList.add(petPitu);
   }
 
   @Test
   void createPets() throws Exception {
-    when(petsService.createPets(any(Pets.class))).thenReturn(petLolo);
+    when(petsService.createPets(any(Pet.class))).thenReturn(petLolo);
 
     String petsJson =
         "{\"id\": 1,\n"
@@ -108,7 +108,7 @@ class PetsControllerTest {
 
   @Test
   void getAllPets() throws Exception {
-    when(petsService.getAllPets()).thenReturn(petsList);
+    when(petsService.getAllPets()).thenReturn(petList);
 
     mockMvc
         .perform(MockMvcRequestBuilders.get("/api/as/pets"))
@@ -172,10 +172,10 @@ class PetsControllerTest {
 
   @Test
   void updatePets() throws Exception {
-    Pets updatePets = new Pets();
-    updatePets.setId(2);
-    updatePets.setDescription("Playful cat but a little unsociable");
-    updatePets.setRace("Orange cat");
+    Pet updatePet = new Pet();
+    updatePet.setId(2);
+    updatePet.setDescription("Playful cat but a little unsociable");
+    updatePet.setRace("Orange cat");
 
     String updatePetsJson =
         "{\"id\": 2,\n"
@@ -189,7 +189,7 @@ class PetsControllerTest {
                 .content(updatePetsJson))
         .andExpect(status().isOk());
 
-    verify(petsService).updatePets(any(Pets.class), any(Integer.class));
+    verify(petsService).updatePets(any(Pet.class), any(Integer.class));
   }
 
   @Test

@@ -3,7 +3,7 @@ package com.example.Animal.Shelter.services;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import com.example.Animal.Shelter.models.Pets;
+import com.example.Animal.Shelter.models.Pet;
 import com.example.Animal.Shelter.repositories.IPetsRepository;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,19 +16,19 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-class PetsServiceTest {
+class PetServiceTest {
   @Mock private IPetsRepository iPetsRepository;
   @InjectMocks private PetsService petsService;
 
-  private Pets petLolo;
-  private Pets petPitu;
+  private Pet petLolo;
+  private Pet petPitu;
 
-  private List<Pets> petsList = new ArrayList<>();
+  private List<Pet> petList = new ArrayList<>();
 
   @BeforeEach
   public void setUp() {
     MockitoAnnotations.openMocks(this);
-    petLolo = new Pets();
+    petLolo = new Pet();
     petLolo.setId(1);
     petLolo.setName("Lolo");
     petLolo.setPicture(
@@ -42,7 +42,7 @@ class PetsServiceTest {
     petLolo.setTimeInTheShelter(LocalDate.of(2024, 9, 5));
     petLolo.setDescription("Very affectionate and playful puppy");
 
-    petPitu = new Pets();
+    petPitu = new Pet();
     petPitu.setId(2);
     petPitu.setName("Pitu");
     petPitu.setPicture("https://img2.rtve.es/i/?w=1600&i=1618587961630.jpg");
@@ -55,15 +55,15 @@ class PetsServiceTest {
     petPitu.setTimeInTheShelter(LocalDate.of(2023, 5, 5));
     petPitu.setDescription("Playful cat");
 
-    petsList.add(petLolo);
-    petsList.add(petPitu);
+    petList.add(petLolo);
+    petList.add(petPitu);
   }
 
   @Test
   void createPets() {
-    when(iPetsRepository.save(ArgumentMatchers.any(Pets.class))).thenReturn(petLolo);
+    when(iPetsRepository.save(ArgumentMatchers.any(Pet.class))).thenReturn(petLolo);
 
-    Pets result = petsService.createPets(petLolo);
+    Pet result = petsService.createPets(petLolo);
     assertEquals(1, result.getId());
     assertEquals("Lolo", result.getName());
     assertEquals(
@@ -81,9 +81,9 @@ class PetsServiceTest {
 
   @Test
   void getAllPets() {
-    when(iPetsRepository.findAll()).thenReturn(petsList);
+    when(iPetsRepository.findAll()).thenReturn(petList);
 
-    List<Pets> result = petsService.getAllPets();
+    List<Pet> result = petsService.getAllPets();
 
     assertEquals(2, result.size());
     assertEquals(1, result.get(0).getId());
@@ -108,7 +108,7 @@ class PetsServiceTest {
   void getPetsById() {
     when(iPetsRepository.findById(anyInt())).thenReturn(Optional.of(petLolo));
 
-    Optional<Pets> result = petsService.getPetsById(0);
+    Optional<Pet> result = petsService.getPetsById(0);
 
     assertEquals(1, result.get().getId());
     assertEquals("Lolo", result.get().getName());
@@ -128,8 +128,8 @@ class PetsServiceTest {
 
   @Test
   void updatePets() {
-    when(iPetsRepository.save(any(Pets.class))).thenReturn(petPitu);
-    Pets update = petPitu;
+    when(iPetsRepository.save(any(Pet.class))).thenReturn(petPitu);
+    Pet update = petPitu;
     update.setRace("Orange");
 
     petsService.updatePets(update, 2);

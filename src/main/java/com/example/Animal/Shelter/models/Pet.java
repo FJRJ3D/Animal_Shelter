@@ -1,5 +1,6 @@
 package com.example.Animal.Shelter.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Pets {
+public class Pet {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,4 +52,9 @@ public class Pets {
 
   @Column(name = "Description")
   private String description;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JsonBackReference
+  @JoinColumn(name = "users_id")
+  private User user;
 }

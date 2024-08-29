@@ -1,34 +1,32 @@
 package com.example.Animal.Shelter.services;
 
-import com.example.Animal.Shelter.models.Pets;
+import com.example.Animal.Shelter.models.Pet;
 import com.example.Animal.Shelter.repositories.IPetsRepository;
+import java.util.ArrayList;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-
-import java.util.Optional;
 
 @Service
 public class PetsService {
 
   @Autowired IPetsRepository iPetsRepository;
 
-  public Pets createPets(Pets pets){
-    return iPetsRepository.save(pets);
+  public Pet createPets(Pet pet){
+    return iPetsRepository.save(pet);
   }
 
-  public ArrayList<Pets> getAllPets(){
-    return (ArrayList<Pets>) iPetsRepository.findAll();
+  public ArrayList<Pet> getAllPets(){
+    return (ArrayList<Pet>) iPetsRepository.findAll();
   }
 
-  public Optional<Pets> getPetsById(Integer id){
+  public Optional<Pet> getPetsById(Integer id){
     return iPetsRepository.findById(id);
   }
 
-  public void updatePets(Pets pets, Integer id) {
-    pets.setId(id);
-    iPetsRepository.save(pets);
+  public void updatePets(Pet pet, Integer id) {
+    pet.setId(id);
+    iPetsRepository.save(pet);
   }
 
   public void deletePets(Integer id) {

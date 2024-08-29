@@ -2,12 +2,11 @@ package com.example.Animal.Shelter.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
 
 @Entity
 @Table
@@ -15,7 +14,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Donations {
+public class Donation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

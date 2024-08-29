@@ -3,7 +3,7 @@ package com.example.Animal.Shelter.services;
 import com.example.Animal.Shelter.dto.request.LoginRequest;
 import com.example.Animal.Shelter.dto.request.RegisterRequest;
 import com.example.Animal.Shelter.dto.response.AuthResponse;
-import com.example.Animal.Shelter.models.Users;
+import com.example.Animal.Shelter.models.User;
 import com.example.Animal.Shelter.repositories.IUsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -36,18 +36,18 @@ public class AuthService {
     }
 
     public AuthResponse register(RegisterRequest register) {
-        Users users = Users.builder()
+        User user = User.builder()
                 .username(register.getUsername())
                 .email(register.getEmail())
                 .password(passwordEncoder.encode(register.getPassword()))
                 .role(register.getRole())
                 .build();
 
-        iUsersRepository.save(users);
+        iUsersRepository.save(user);
 
         return AuthResponse
                 .builder()
-                .token(jwtService.getTokenService(users))
+                .token(jwtService.getTokenService(user))
                 .role(register.getRole())
                 .build();
     }

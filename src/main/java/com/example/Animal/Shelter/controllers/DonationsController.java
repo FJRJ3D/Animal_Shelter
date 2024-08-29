@@ -1,11 +1,9 @@
 package com.example.Animal.Shelter.controllers;
 
-import com.example.Animal.Shelter.models.Donations;
+import com.example.Animal.Shelter.models.Donation;
 import com.example.Animal.Shelter.services.DonationsService;
-
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,23 +24,23 @@ public class DonationsController {
     DonationsService donationsService;
 
     @PostMapping(path = "/Donations")
-    public Donations createDonations(@RequestBody Donations donations){
-        return donationsService.createDonations(donations);
+    public Donation createDonations(@RequestBody Donation donation){
+        return donationsService.createDonations(donation);
     }
 
     @GetMapping(path = "/Donations")
-    public List<Donations> getAllDonations() {
+    public List<Donation> getAllDonations() {
         return donationsService.getAllDonations();
     }
 
     @GetMapping(path = "/Donations/{id}")
-        public Optional<Donations> getDonationsbyId(@PathVariable int id) {
+        public Optional<Donation> getDonationsbyId(@PathVariable int id) {
             return donationsService.getDonationsbyId(id);
         }
 
     @PutMapping(path = "/Donations/{id}")
-        public void updateDonations(@RequestBody Donations donations, @PathVariable int id) {
-            donationsService.updateDonations(donations, id);
+        public void updateDonations(@RequestBody Donation donation, @PathVariable int id) {
+            donationsService.updateDonations(donation, id);
         }
     
     @DeleteMapping(path = "/Donations/{id}")

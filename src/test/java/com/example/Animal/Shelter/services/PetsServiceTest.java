@@ -31,7 +31,8 @@ class PetsServiceTest {
     petLolo = new Pets();
     petLolo.setId(1);
     petLolo.setName("Lolo");
-    petLolo.setPicture("https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/202931.jpg");
+    petLolo.setPicture(
+        "https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/202931.jpg");
     petLolo.setAnimalType("Dog");
     petLolo.setRace("Rottweiler");
     petLolo.setBirthDate(LocalDate.of(2024, 8, 17));
@@ -60,87 +61,96 @@ class PetsServiceTest {
 
   @Test
   void createPets() {
-      when(iPetsRepository.save(ArgumentMatchers.any(Pets.class))).thenReturn(petLolo);
+    when(iPetsRepository.save(ArgumentMatchers.any(Pets.class))).thenReturn(petLolo);
 
-      Pets result = petsService.createPets(petLolo);
-      assertEquals(1, result.getId());
-      assertEquals("Lolo", result.getName());
-      assertEquals("https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/202931.jpg", result.getPicture());
-      assertEquals("Dog", result.getAnimalType());
-      assertEquals("Rottweiler", result.getRace());
-      assertEquals(LocalDate.of(2024,8, 17), result.getBirthDate());
-      assertFalse(result.isGender());
-      assertFalse(result.isStatus());
-      assertFalse(result.isSterilized());
-      assertEquals(LocalDate.of(2024,9,5), result.getTimeInTheShelter());
-      assertEquals("Very affectionate and playful puppy", result.getDescription());
-      }
-   @Test
-    void getAllPets() {
-      when(iPetsRepository.findAll()).thenReturn(petsList);
+    Pets result = petsService.createPets(petLolo);
+    assertEquals(1, result.getId());
+    assertEquals("Lolo", result.getName());
+    assertEquals(
+        "https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/202931.jpg",
+        result.getPicture());
+    assertEquals("Dog", result.getAnimalType());
+    assertEquals("Rottweiler", result.getRace());
+    assertEquals(LocalDate.of(2024, 8, 17), result.getBirthDate());
+    assertFalse(result.isGender());
+    assertFalse(result.isStatus());
+    assertFalse(result.isSterilized());
+    assertEquals(LocalDate.of(2024, 9, 5), result.getTimeInTheShelter());
+    assertEquals("Very affectionate and playful puppy", result.getDescription());
+  }
 
-      List<Pets> result = petsService.getAllPets();
+  @Test
+  void getAllPets() {
+    when(iPetsRepository.findAll()).thenReturn(petsList);
 
-      assertEquals(2, result.size());
-      assertEquals(1, result.get(0).getId());
-      assertEquals("Lolo", result.get(0).getName());
-      assertEquals("https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/202931.jpg", result.get(0).getPicture());
-      assertEquals("Dog", result.get(0).getAnimalType());
-      assertEquals("Rottweiler", result.get(0).getRace());
-      assertEquals(LocalDate.of(2024,8, 17), result.get(0).getBirthDate());
-      assertFalse(result.get(0).isGender());
-      assertFalse(result.get(0).isStatus());
-      assertFalse(result.get(0).isSterilized());
-      assertEquals(LocalDate.of(2024,9,5), result.get(0).getTimeInTheShelter());
-      assertEquals("Very affectionate and playful puppy", result.get(0).getDescription());
+    List<Pets> result = petsService.getAllPets();
 
-      assertEquals(2, result.get(1).getId());
-      assertEquals("Pitu", result.get(1).getName());
-      }
+    assertEquals(2, result.size());
+    assertEquals(1, result.get(0).getId());
+    assertEquals("Lolo", result.get(0).getName());
+    assertEquals(
+        "https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/202931.jpg",
+        result.get(0).getPicture());
+    assertEquals("Dog", result.get(0).getAnimalType());
+    assertEquals("Rottweiler", result.get(0).getRace());
+    assertEquals(LocalDate.of(2024, 8, 17), result.get(0).getBirthDate());
+    assertFalse(result.get(0).isGender());
+    assertFalse(result.get(0).isStatus());
+    assertFalse(result.get(0).isSterilized());
+    assertEquals(LocalDate.of(2024, 9, 5), result.get(0).getTimeInTheShelter());
+    assertEquals("Very affectionate and playful puppy", result.get(0).getDescription());
 
-    @Test
-      void getPetsById() {
-          when(iPetsRepository.findById(anyInt())).thenReturn(Optional.of(petLolo));
+    assertEquals(2, result.get(1).getId());
+    assertEquals("Pitu", result.get(1).getName());
+  }
 
-          Optional<Pets> result = petsService.getPetsById(0);
+  @Test
+  void getPetsById() {
+    when(iPetsRepository.findById(anyInt())).thenReturn(Optional.of(petLolo));
 
-          assertEquals(1, result.get().getId());
-          assertEquals("Lolo", result.get().getName());
-          assertEquals("https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/" +
-                  "202931.jpg", result.get().getPicture());
-          assertEquals("Dog", result.get().getAnimalType());
-          assertEquals("Rottweiler", result.get().getRace());
-          assertEquals(LocalDate.of(2024,8, 17), result.get().getBirthDate());
-          assertFalse(result.get().isGender());
-          assertFalse(result.get().isStatus());
-          assertFalse(result.get().isSterilized());
-          assertEquals(LocalDate.of(2024,9,5), result.get().getTimeInTheShelter());
-          assertEquals("Very affectionate and playful puppy", result.get().getDescription());
-      }
-      @Test
-    void updatePets() {
-        when(iPetsRepository.save(any(Pets.class))).thenReturn(petPitu);
-        Pets update = petPitu;
-        update.setRace("Orange");
+    Optional<Pets> result = petsService.getPetsById(0);
 
-        petsService.updatePets(update, 2);
-        assertEquals(2, update.getId());
-        assertEquals("Pitu", update.getName());
-        assertEquals("https://img2.rtve.es/i/?w=1600&i=1618587961630.jpg", update.getPicture());
-        assertEquals("Cat", update.getAnimalType());
-        assertEquals(LocalDate.of(2022, 4, 18), update.getBirthDate());
-        assertEquals(false, update.isGender());
-        assertEquals(false, update.isStatus());
-        assertEquals(true, update.isSterilized());
-        assertEquals(LocalDate.of(2023, 5, 5), update.getTimeInTheShelter());
-        assertEquals("Playful cat", update.getDescription());
+    assertEquals(1, result.get().getId());
+    assertEquals("Lolo", result.get().getName());
+    assertEquals(
+        "https://media.traveler.es/photos/613760adcb06ad0f20e11980/master/w_1600,c_limit/"
+            + "202931.jpg",
+        result.get().getPicture());
+    assertEquals("Dog", result.get().getAnimalType());
+    assertEquals("Rottweiler", result.get().getRace());
+    assertEquals(LocalDate.of(2024, 8, 17), result.get().getBirthDate());
+    assertFalse(result.get().isGender());
+    assertFalse(result.get().isStatus());
+    assertFalse(result.get().isSterilized());
+    assertEquals(LocalDate.of(2024, 9, 5), result.get().getTimeInTheShelter());
+    assertEquals("Very affectionate and playful puppy", result.get().getDescription());
+  }
 
-        verify(iPetsRepository, times(1)).save(update);
-    }
-    @Test
-    void deletePets() {
-        when(iPetsRepository.findById(1)).thenReturn(Optional.of(petLolo));
-        petsService.deletePets(1);
-        verify(iPetsRepository, times(1)).deleteById(1);
-    }
+  @Test
+  void updatePets() {
+    when(iPetsRepository.save(any(Pets.class))).thenReturn(petPitu);
+    Pets update = petPitu;
+    update.setRace("Orange");
+
+    petsService.updatePets(update, 2);
+    assertEquals(2, update.getId());
+    assertEquals("Pitu", update.getName());
+    assertEquals("https://img2.rtve.es/i/?w=1600&i=1618587961630.jpg", update.getPicture());
+    assertEquals("Cat", update.getAnimalType());
+    assertEquals(LocalDate.of(2022, 4, 18), update.getBirthDate());
+    assertEquals(false, update.isGender());
+    assertEquals(false, update.isStatus());
+    assertEquals(true, update.isSterilized());
+    assertEquals(LocalDate.of(2023, 5, 5), update.getTimeInTheShelter());
+    assertEquals("Playful cat", update.getDescription());
+
+    verify(iPetsRepository, times(1)).save(update);
+  }
+
+  @Test
+  void deletePets() {
+    when(iPetsRepository.findById(1)).thenReturn(Optional.of(petLolo));
+    petsService.deletePets(1);
+    verify(iPetsRepository, times(1)).deleteById(1);
+  }
 }

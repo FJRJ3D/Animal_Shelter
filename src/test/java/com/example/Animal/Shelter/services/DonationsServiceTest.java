@@ -30,6 +30,49 @@ class DonationsServiceTest {
         MockitoAnnotations.openMocks(this);
         donorBruce = new Donations();
         donorBruce.setId(1);
+        donorBruce.setQuantity(20000);
+        donorBruce.setDate(LocalDate.of(2024, 06, 24));
+        donorBruce.setDonor("Bruce Wayne");
+
+        donorAnon = new Donations();
+        donorAnon.setId(2);
+        donorAnon.setQuantity(500);
+        donorAnon.setDate(LocalDate.of(2024, 02, 10));
+        donorAnon.setDonor("Anonymous Donor");
+
+        donationsList.add(donorBruce);
+        donationsList.add(donorAnon);
     }
 
+    @Test 
+    void createDonations() {
+        when(iDonationsRepository.save(ArgumentMatchers.any(Donations.class))).thenReturn(donorAnon);
+
+        Donations result = donationsService.createDonations(donorAnon);
+        assertEquals(2, result.getId());
+        assertEquals(500, result.getQuantity());
+        assertEquals(LocalDate.of(2024, 02, 10), result.getDate());
+        assertEquals("Anonymous Donor", result.getDonor());
+    }
+
+    @Test
+
+    void getAllDonations() {
+        when(iDonationsRepository.findAll()).thenReturn(donationsList);
+
+        List<Donations> result = donationsService.getAllDonations();
+
+        assertEquals(2, result.size());
+        assertEquals(1, result.get(0).getId());
+        assertEquals(20000, result.get(0).getQuantity());
+        assertEquals(LocalDate.of(2024, 06, 24), result.get(0).getDate());
+        assertEquals("Bruce Wayne", result.get(0).getDonor());
+
+        assertEquals(2, result.get(1).getId());
+        assertEquals(500, result.get(1).getQuantity());
+        assertEquals(LocalDate.of(2024, 02, 10), result.get(1).getDate());
+        assertEquals("Anonymous Donor", result.get(1).getDonor());
+
+
+}
 }

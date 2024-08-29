@@ -119,18 +119,21 @@ class DonationsControllerTest {
         updatedDonations.setDate(LocalDate.of(2023,05,12));
         updatedDonations.setDonor("Bruce Wayne");
 
-        doNothing().when(donationsService).updateDonations(updatedDonations, 1);
 
         mockMvc.perform(put("/api/as/Donations/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":1,\"quantity\":40000,\"date\":\"2023-05-12\",\"donor\":\"Bruce Wayne\"}"))
+                .content("{\"id\":1,\"quantity\":40000.0,\"date\":\"12-05-2024\",\"donor\":\"Bruce Wayne\"}"))
                 .andExpect(status().isOk());
+                verify(donationsService).updateDonations(any(Donations.class), any(Integer.class));
 
                 
     }
 
     @Test
-    void deleteDonations() {
+    void deleteDonations() throws Exception {
+        doNothing().when(donationsService).deleteDonations(2);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/as/Donations/2")).andExpect(status().isOk());
     }
 
 }

@@ -1,21 +1,22 @@
 package com.example.Animal.Shelter.models;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+@Data
+@Builder
 @Entity
-@Table
-@Getter
-@Setter
+@Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 @NoArgsConstructor
 @AllArgsConstructor
-public class Users {
+public class Users implements UserDetails {
 
     @Id
     @GeneratedValue
@@ -29,14 +30,30 @@ public class Users {
     @Enumerated(EnumType.STRING)
     ERole role;
 
-    @Column(name = "Password")
-    private String password;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority((role.name())));
+    }
 
-    @Column(name = "Adopted Animals")
-    private String adoptedAnimals;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-    @Column(name = "Role")
-    private String role;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
     @OneToMany(mappedBy = "User", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Pets> pets = new ArrayList<Pets>();

@@ -9,32 +9,32 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/news")
 public class PetsController {
 
   @Autowired PetsService petsService;
 
-  @PostMapping(path = "/newPost")
+  @PostMapping
   public Pet createPets(@RequestBody Pet pet){
     return petsService.createPets(pet);
   }
 
-  @GetMapping(path = "/post/getAll")
+  @GetMapping
   public ArrayList<Pet> getAllPets(){
     return petsService.getAllPets();
   }
 
-  @GetMapping(path = "/pets/{id}")
+  @GetMapping(path = "/{id}")
   public Optional<Pet> getPetsById(@PathVariable Integer id){
     return petsService.getPetsById(id);
   }
 
-  @PutMapping(path = "/post/update/{id}")
+  @PutMapping(path = "/{id}")
   public void updatePets(@RequestBody Pet pet, @PathVariable Integer id) {
     petsService.updatePets(pet, id);
   }
 
-  @DeleteMapping(path = "/post/delete/{id}")
+  @DeleteMapping(path = "/{id}")
   public void deletePets(@PathVariable Integer id) {
     petsService.deletePets(id);
   }

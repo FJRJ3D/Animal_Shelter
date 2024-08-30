@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/as")
+@RequestMapping("/api/v1/news")
 public class PetsController {
 
   @Autowired PetsService petsService;
@@ -19,7 +19,7 @@ public class PetsController {
     return petsService.createPets(pet);
   }
 
-  @GetMapping(path = "/pets")
+  @GetMapping
   public ArrayList<Pet> getAllPets(){
     return petsService.getAllPets();
   }

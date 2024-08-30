@@ -21,11 +21,11 @@ public class Pet {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
-  @Column(name = "Name")
-  private String name;
+  @Column(name = "Title")
+  private String title;
 
-  @Column(name = "Picture")
-  private String picture;
+  @Column(name = "UrlImg")
+  private String urlImg;
 
   @Column(name = "Animal Type")
   private String animalType;

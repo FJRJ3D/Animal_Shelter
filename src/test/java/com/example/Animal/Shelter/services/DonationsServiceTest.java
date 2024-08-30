@@ -1,6 +1,7 @@
 package com.example.Animal.Shelter.services;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import com.example.Animal.Shelter.models.Donations;
@@ -72,7 +73,39 @@ class DonationsServiceTest {
         assertEquals(500, result.get(1).getQuantity());
         assertEquals(LocalDate.of(2024, 02, 10), result.get(1).getDate());
         assertEquals("Anonymous Donor", result.get(1).getDonor());
+    }
 
+    @Test
+    public void getAppointmentId(){
+        when(iDonationsRepository.findById(2)).thenReturn(Optional.of(donorAnon));
+        Optional<Donations> donationsId = donationsService.getDonationsbyId(2);
+        assertEquals("Anonymous Donor", donationsId.get().getDonor());
+          }
 
+    @Test
+  void deleteDonations() {
+    when(iDonationsRepository.findById(2)).thenReturn(Optional.of(donorAnon));
+
+    donationsService.deleteDonations(2);
+
+    verify(iDonationsRepository, times(1)).deleteById(2);      
 }
+
+    @Test
+    void updateDonations() {
+         when(iDonationsRepository.save(any(Donations.class))).thenReturn(donorAnon);
+    Donations update = donorAnon;
+    update.setQuantity(650);
+
+    donationsService.updateDonations(update, 2);
+    assertEquals(2, update.getId());
+    assertEquals(650, update.getQuantity());
+    assertEquals(LocalDate.of(2024, 2, 10), update.getDate());
+    assertEquals("Anonymous Donor", update.getDonor());
+    
+
+    verify(iDonationsRepository, times(1)).save(update);
+
+    }
+
 }

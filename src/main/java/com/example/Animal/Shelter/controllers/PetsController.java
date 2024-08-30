@@ -8,18 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "*")
-@RequestMapping("/api/v1/news")
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/api/v1")
 public class PetsController {
 
   @Autowired PetsService petsService;
 
-  @PostMapping(path = "/pets")
+  @PostMapping(path = "/newPost")
   public Pet createPets(@RequestBody Pet pet){
     return petsService.createPets(pet);
   }
 
-  @GetMapping
+  @GetMapping(path = "/post/getAll")
   public ArrayList<Pet> getAllPets(){
     return petsService.getAllPets();
   }
@@ -29,12 +29,12 @@ public class PetsController {
     return petsService.getPetsById(id);
   }
 
-  @PutMapping(path = "/pets/{id}")
+  @PutMapping(path = "/post/update/{id}")
   public void updatePets(@RequestBody Pet pet, @PathVariable Integer id) {
     petsService.updatePets(pet, id);
   }
 
-  @DeleteMapping(path = "/pets/{id}")
+  @DeleteMapping(path = "/post/delete/{id}")
   public void deletePets(@PathVariable Integer id) {
     petsService.deletePets(id);
   }

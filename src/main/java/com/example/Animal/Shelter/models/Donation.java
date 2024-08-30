@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table
+@Table(name = "donations")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,14 +19,6 @@ public class Donation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @Column(name = "Quantity")
-    private double quantity;
-
-    @Column(name = "Date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private LocalDate date;
-
-    @Column(name = "Donor")
-    private String donor;
+    private String name;
+    private String donation;
 }

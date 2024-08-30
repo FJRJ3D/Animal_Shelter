@@ -16,19 +16,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin("*")
-@RequestMapping("/api/as")
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/api/v1/donations")
 public class DonationsController {
 
     @Autowired
     DonationsService donationsService;
 
-    @PostMapping(path = "/Donations")
+    @PostMapping(path = "/newDonation")
     public Donation createDonations(@RequestBody Donation donation){
         return donationsService.createDonations(donation);
     }
 
-    @GetMapping(path = "/Donations")
+    @GetMapping(path = "/getAll")
     public List<Donation> getAllDonations() {
         return donationsService.getAllDonations();
     }
@@ -38,12 +38,12 @@ public class DonationsController {
             return donationsService.getDonationsbyId(id);
         }
 
-    @PutMapping(path = "/Donations/{id}")
+    @PutMapping(path = "/update/{id}")
         public void updateDonations(@RequestBody Donation donation, @PathVariable int id) {
             donationsService.updateDonations(donation, id);
         }
     
-    @DeleteMapping(path = "/Donations/{id}")
+    @DeleteMapping(path = "/delete/{id}")
         public void deleteDonations(@PathVariable int id) {
             donationsService.deleteDonations(id);
         }

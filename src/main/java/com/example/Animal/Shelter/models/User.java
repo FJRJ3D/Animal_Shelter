@@ -20,8 +20,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 @AllArgsConstructor
 public class User implements UserDetails {
 
-  @Id @GeneratedValue Integer id;
+  @Id @GeneratedValue
+  Integer id;
 
+  @Basic
   @Column(nullable = false)
   String username;
 

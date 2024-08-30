@@ -4,6 +4,6 @@ import com.example.Animal.Shelter.models.User;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IUsersRepository extends JpaRepository<User, Integer> {
-    Optional<User> findByUsername(String username);
+public interface IUserRepository extends JpaRepository<User, Integer> {
+  Optional<User> findByUsername(String username);
 }

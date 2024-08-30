@@ -1,7 +1,7 @@
 package com.example.Animal.Shelter.services;
 
 import com.example.Animal.Shelter.models.Pet;
-import com.example.Animal.Shelter.repositories.IPetsRepository;
+import com.example.Animal.Shelter.repositories.IPetRepository;
 import java.util.ArrayList;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,26 +10,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class PetsService {
 
-  @Autowired IPetsRepository iPetsRepository;
+  @Autowired IPetRepository iPetRepository;
 
-  public Pet createPets(Pet pet){
-    return iPetsRepository.save(pet);
+  public Pet createPets(Pet pet) {
+    return iPetRepository.save(pet);
   }
 
-  public ArrayList<Pet> getAllPets(){
-    return (ArrayList<Pet>) iPetsRepository.findAll();
+  public ArrayList<Pet> getAllPets() {
+    return (ArrayList<Pet>) iPetRepository.findAll();
   }
 
-  public Optional<Pet> getPetsById(Integer id){
-    return iPetsRepository.findById(id);
+  public Optional<Pet> getPetsById(Integer id) {
+    return iPetRepository.findById(id);
   }
 
   public void updatePets(Pet pet, Integer id) {
     pet.setId(id);
-    iPetsRepository.save(pet);
+    iPetRepository.save(pet);
   }
 
   public void deletePets(Integer id) {
-    iPetsRepository.deleteById(id);
+    iPetRepository.deleteById(id);
   }
 }

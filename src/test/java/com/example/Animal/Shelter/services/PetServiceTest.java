@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.example.Animal.Shelter.models.Pet;
-import com.example.Animal.Shelter.repositories.IPetsRepository;
+import com.example.Animal.Shelter.repositories.IPetRepository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 class PetServiceTest {
-  @Mock private IPetsRepository iPetsRepository;
+  @Mock private IPetRepository iPetRepository;
   @InjectMocks private PetsService petsService;
 
   private Pet petLolo;
@@ -61,7 +61,7 @@ class PetServiceTest {
 
   @Test
   void createPets() {
-    when(iPetsRepository.save(ArgumentMatchers.any(Pet.class))).thenReturn(petLolo);
+    when(iPetRepository.save(ArgumentMatchers.any(Pet.class))).thenReturn(petLolo);
 
     Pet result = petsService.createPets(petLolo);
     assertEquals(1, result.getId());
@@ -81,7 +81,7 @@ class PetServiceTest {
 
   @Test
   void getAllPets() {
-    when(iPetsRepository.findAll()).thenReturn(petList);
+    when(iPetRepository.findAll()).thenReturn(petList);
 
     List<Pet> result = petsService.getAllPets();
 
@@ -106,7 +106,7 @@ class PetServiceTest {
 
   @Test
   void getPetsById() {
-    when(iPetsRepository.findById(anyInt())).thenReturn(Optional.of(petLolo));
+    when(iPetRepository.findById(anyInt())).thenReturn(Optional.of(petLolo));
 
     Optional<Pet> result = petsService.getPetsById(0);
 
@@ -128,7 +128,7 @@ class PetServiceTest {
 
   @Test
   void updatePets() {
-    when(iPetsRepository.save(any(Pet.class))).thenReturn(petPitu);
+    when(iPetRepository.save(any(Pet.class))).thenReturn(petPitu);
     Pet update = petPitu;
     update.setRace("Orange");
 
@@ -144,13 +144,13 @@ class PetServiceTest {
     assertEquals(LocalDate.of(2023, 5, 5), update.getTimeInTheShelter());
     assertEquals("Playful cat", update.getDescription());
 
-    verify(iPetsRepository, times(1)).save(update);
+    verify(iPetRepository, times(1)).save(update);
   }
 
   @Test
   void deletePets() {
-    when(iPetsRepository.findById(1)).thenReturn(Optional.of(petLolo));
+    when(iPetRepository.findById(1)).thenReturn(Optional.of(petLolo));
     petsService.deletePets(1);
-    verify(iPetsRepository, times(1)).deleteById(1);
+    verify(iPetRepository, times(1)).deleteById(1);
   }
 }

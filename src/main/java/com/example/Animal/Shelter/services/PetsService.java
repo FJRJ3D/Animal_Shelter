@@ -29,6 +29,11 @@ public class PetsService {
     iPetRepository.save(pet);
   }
 
+  public void updateOwner(Pet pet, Integer id) {
+    pet.getUser().setId(id);
+    iPetRepository.save(pet);
+  }
+
   public void deletePets(Integer id) {
     iPetRepository.deleteById(id);
   }

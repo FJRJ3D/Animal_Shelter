@@ -38,4 +38,9 @@ public class PetsController {
   public void deletePets(@PathVariable Integer id) {
     petsService.deletePets(id);
   }
+
+  @PutMapping(path = "/owner/put/{id}")
+  public void updateOwner(@RequestBody Pet pet, @PathVariable Integer id) {
+    petsService.updateOwner(pet, id);
+  }
 }

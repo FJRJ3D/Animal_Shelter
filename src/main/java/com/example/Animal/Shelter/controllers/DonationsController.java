@@ -23,27 +23,27 @@ public class DonationsController {
     @Autowired
     DonationsService donationsService;
 
-    @PostMapping
+    @PostMapping(path = "post")
     public Donation createDonations(@RequestBody Donation donation){
         return donationsService.createDonations(donation);
     }
 
-    @GetMapping
+    @GetMapping(path = "get")
     public List<Donation> getAllDonations() {
         return donationsService.getAllDonations();
     }
 
-    @GetMapping(path = "{id}")
+    @GetMapping(path = "get/{id}")
         public Optional<Donation> getDonationsbyId(@PathVariable int id) {
             return donationsService.getDonationsbyId(id);
         }
 
-    @PutMapping(path = "{id}")
+    @PutMapping(path = "put/{id}")
         public void updateDonations(@RequestBody Donation donation, @PathVariable int id) {
             donationsService.updateDonations(donation, id);
         }
     
-    @DeleteMapping(path = "{id}")
+    @DeleteMapping(path = "delete/{id}")
         public void deleteDonations(@PathVariable int id) {
             donationsService.deleteDonations(id);
         }

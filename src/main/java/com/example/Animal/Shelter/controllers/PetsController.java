@@ -14,27 +14,27 @@ public class PetsController {
 
   @Autowired PetsService petsService;
 
-  @PostMapping
+  @PostMapping(path = "/post")
   public Pet createPets(@RequestBody Pet pet){
     return petsService.createPets(pet);
   }
 
-  @GetMapping
+  @GetMapping(path = "/get")
   public ArrayList<Pet> getAllPets(){
     return petsService.getAllPets();
   }
 
-  @GetMapping(path = "/{id}")
+  @GetMapping(path = "/get/{id}")
   public Optional<Pet> getPetsById(@PathVariable Integer id){
     return petsService.getPetsById(id);
   }
 
-  @PutMapping(path = "/{id}")
+  @PutMapping(path = "/put/{id}")
   public void updatePets(@RequestBody Pet pet, @PathVariable Integer id) {
     petsService.updatePets(pet, id);
   }
 
-  @DeleteMapping(path = "/{id}")
+  @DeleteMapping(path = "/delete/{id}")
   public void deletePets(@PathVariable Integer id) {
     petsService.deletePets(id);
   }

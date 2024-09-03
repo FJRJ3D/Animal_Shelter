@@ -2,20 +2,19 @@ package com.example.Animal.Shelter.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Entity
-@Table
+@Table(name = "donations")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Donations {
+public class Donation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +25,7 @@ public class Donations {
 
     @Column(name = "Date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private LocalDate date;
+    private LocalDate date = LocalDate.now();
 
     @Column(name = "Donor")
     private String donor;

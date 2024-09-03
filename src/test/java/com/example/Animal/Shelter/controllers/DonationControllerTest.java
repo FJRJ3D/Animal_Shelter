@@ -1,7 +1,7 @@
 package com.example.Animal.Shelter.controllers;
 
-import com.example.Animal.Shelter.models.Donations;
-import com.example.Animal.Shelter.services.DonationsService;
+import com.example.Animal.Shelter.models.Donation;
+import com.example.Animal.Shelter.services.DonationService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -25,29 +25,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-class DonationsControllerTest {
+class DonationControllerTest {
     @Mock 
-    private DonationsService donationsService;
+    private DonationService donationService;
     @InjectMocks
-    private DonationsController donationsController;
+    private DonationController donationController;
     private MockMvc mockMvc;
 
-    private Donations donorBruce;
-    private Donations donorAnon;
-    private List<Donations> donationsList = new ArrayList<>();
+    private Donation donorBruce;
+    private Donation donorAnon;
+    private List<Donation> donationsList = new ArrayList<>();
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(donationsController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(donationController).build();
 
-        donorBruce = new Donations();
+        donorBruce = new Donation();
         donorBruce.setId(1);
         donorBruce.setQuantity(20000);
         donorBruce.setDate(LocalDate.of(2024, 06, 24));
         donorBruce.setDonor("Bruce Wayne");
 
-        donorAnon = new Donations();
+        donorAnon = new Donation();
         donorAnon.setId(2);
         donorAnon.setQuantity(500);
         donorAnon.setDate(LocalDate.of(2024, 02, 10));
@@ -60,9 +60,9 @@ class DonationsControllerTest {
     @Test
     void createDonations() {
 
-       when(donationsService.createDonations(any(Donations.class))).thenReturn(donorBruce);
+       when(donationService.createDonations(any(Donation.class))).thenReturn(donorBruce);
 
-        Donations result = donationsController.createDonations(donorBruce);
+        Donation result = donationController.createDonations(donorBruce);
 
         assertNotNull(result);
         assertEquals(donorBruce.getId(), result.getId());
@@ -73,7 +73,7 @@ class DonationsControllerTest {
 
     @Test
     void getAllDonations() throws Exception{
-        when(donationsService.getAllDonations()).thenReturn(donationsList);
+        when(donationService.getAllDonations()).thenReturn(donationsList);
         mockMvc.perform(get("/api/as/Donations"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json"))
@@ -89,7 +89,7 @@ class DonationsControllerTest {
 
     @Test
     void getDonationsById() throws Exception{
-        when(donationsService.getDonationsbyId(1)).thenReturn(Optional.of(donorBruce));
+        when(donationService.getDonationsbyId(1)).thenReturn(Optional.of(donorBruce));
         mockMvc.perform(get("/api/as/Donations/1"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json"))
@@ -101,7 +101,7 @@ class DonationsControllerTest {
 
     @Test
     void updateDonations() throws Exception {
-        Donations updatedDonations = new Donations();
+        Donation updatedDonations = new Donation();
         updatedDonations.setId(1);
         updatedDonations.setQuantity(40000);
         updatedDonations.setDate(LocalDate.of(2023,05,12));
@@ -112,14 +112,14 @@ class DonationsControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":1,\"quantity\":40000.0,\"date\":\"12-05-2024\",\"donor\":\"Bruce Wayne\"}"))
                 .andExpect(status().isOk());
-                verify(donationsService).updateDonations(any(Donations.class), any(Integer.class));
+                verify(donationService).updateDonations(any(Donation.class), any(Integer.class));
 
                 
     }
 
     @Test
     void deleteDonations() throws Exception {
-        doNothing().when(donationsService).deleteDonations(2);
+        doNothing().when(donationService).deleteDonations(2);
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/as/Donations/2")).andExpect(status().isOk());
     }

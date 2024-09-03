@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-import com.example.Animal.Shelter.models.Donations;
-import com.example.Animal.Shelter.repositories.IDonationsRepository;
+import com.example.Animal.Shelter.models.Donation;
+import com.example.Animal.Shelter.repositories.IDonationRepository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,25 +17,25 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-class DonationsServiceTest {
-    @Mock private IDonationsRepository iDonationsRepository;
-    @InjectMocks private DonationsService donationsService;
+class DonationServiceTest {
+    @Mock private IDonationRepository iDonationsRepository;
+    @InjectMocks private DonationService donationService;
 
-    private Donations donorBruce;
-    private Donations donorAnon;
+    private Donation donorBruce;
+    private Donation donorAnon;
 
-    private List<Donations> donationsList = new ArrayList<>();
+    private List<Donation> donationsList = new ArrayList<>();
     
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        donorBruce = new Donations();
+        donorBruce = new Donation();
         donorBruce.setId(1);
         donorBruce.setQuantity(20000);
         donorBruce.setDate(LocalDate.of(2024, 06, 24));
         donorBruce.setDonor("Bruce Wayne");
 
-        donorAnon = new Donations();
+        donorAnon = new Donation();
         donorAnon.setId(2);
         donorAnon.setQuantity(500);
         donorAnon.setDate(LocalDate.of(2024, 02, 10));
@@ -47,9 +47,9 @@ class DonationsServiceTest {
 
     @Test 
     void createDonations() {
-        when(iDonationsRepository.save(ArgumentMatchers.any(Donations.class))).thenReturn(donorAnon);
+        when(iDonationsRepository.save(ArgumentMatchers.any(Donation.class))).thenReturn(donorAnon);
 
-        Donations result = donationsService.createDonations(donorAnon);
+        Donation result = donationService.createDonations(donorAnon);
         assertEquals(2, result.getId());
         assertEquals(500, result.getQuantity());
         assertEquals(LocalDate.of(2024, 02, 10), result.getDate());
@@ -61,7 +61,7 @@ class DonationsServiceTest {
     void getAllDonations() {
         when(iDonationsRepository.findAll()).thenReturn(donationsList);
 
-        List<Donations> result = donationsService.getAllDonations();
+        List<Donation> result = donationService.getAllDonations();
 
         assertEquals(2, result.size());
         assertEquals(1, result.get(0).getId());
@@ -78,7 +78,7 @@ class DonationsServiceTest {
     @Test
     public void getAppointmentId(){
         when(iDonationsRepository.findById(2)).thenReturn(Optional.of(donorAnon));
-        Optional<Donations> donationsId = donationsService.getDonationsbyId(2);
+        Optional<Donation> donationsId = donationService.getDonationsbyId(2);
         assertEquals("Anonymous Donor", donationsId.get().getDonor());
           }
 
@@ -86,18 +86,18 @@ class DonationsServiceTest {
   void deleteDonations() {
     when(iDonationsRepository.findById(2)).thenReturn(Optional.of(donorAnon));
 
-    donationsService.deleteDonations(2);
+    donationService.deleteDonations(2);
 
     verify(iDonationsRepository, times(1)).deleteById(2);      
 }
 
     @Test
     void updateDonations() {
-         when(iDonationsRepository.save(any(Donations.class))).thenReturn(donorAnon);
-    Donations update = donorAnon;
+         when(iDonationsRepository.save(any(Donation.class))).thenReturn(donorAnon);
+    Donation update = donorAnon;
     update.setQuantity(650);
 
-    donationsService.updateDonations(update, 2);
+    donationService.updateDonations(update, 2);
     assertEquals(2, update.getId());
     assertEquals(650, update.getQuantity());
     assertEquals(LocalDate.of(2024, 2, 10), update.getDate());

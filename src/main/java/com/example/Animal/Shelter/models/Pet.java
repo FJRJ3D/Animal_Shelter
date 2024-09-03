@@ -15,10 +15,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Pets {
+public class Pet {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column (name = "id", nullable = false)
   private int id;
 
   @Column(name = "Name")
@@ -55,6 +56,6 @@ public class Pets {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JsonBackReference
-  @JoinColumn(name = "users_id")
-  private Users users;
+  @JoinColumn(name = "user_id")
+  private User user;
 }

@@ -23,11 +23,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-@SpringBootTest
 class PetsControllerTest {
-  @Mock private PetsService petsService;
-  @InjectMocks private PetsController petsController;
-  private MockMvc mockMvc;
+  @Mock
+  private PetsService petsService;
+
+  @InjectMocks
+  private PetsController petsController;
+
+  private MockMvc mockController;
 
   private Pets petLolo;
   private Pets petPitu;
@@ -36,7 +39,8 @@ class PetsControllerTest {
   @BeforeEach
   public void setUp() {
     MockitoAnnotations.openMocks(this);
-    mockMvc = MockMvcBuilders.standaloneSetup(petsController).build();
+
+    mockController = MockMvcBuilders.standaloneSetup(petsController).build();
 
     petLolo = new Pets();
     petLolo.setId(1);
@@ -86,7 +90,9 @@ class PetsControllerTest {
             + "\"sterilized\": false,\n"
             + "\"timeInTheShelter\": \"05-09-2024\",\n"
             + "\"description\": \"Very affectionate and playful puppy\"}";
-    mockMvc
+
+    //Testeo el controller
+    mockController
         .perform(post("/api/as/pets").contentType(MediaType.APPLICATION_JSON).content(petsJson))
         .andExpect(status().isOk())
         .andExpect(
@@ -110,7 +116,7 @@ class PetsControllerTest {
   void getAllPets() throws Exception {
     when(petsService.getAllPets()).thenReturn(petsList);
 
-    mockMvc
+    mockController
         .perform(MockMvcRequestBuilders.get("/api/as/pets"))
         .andExpect(status().isOk())
         .andExpect(
@@ -150,7 +156,7 @@ class PetsControllerTest {
   @Test
   void getPetsById() throws Exception {
     when(petsService.getPetsById(anyInt())).thenReturn(Optional.ofNullable(petLolo));
-    mockMvc
+    mockController
         .perform(MockMvcRequestBuilders.get("/api/as/pets/1"))
         .andExpect(status().isOk())
         .andExpect(
@@ -182,7 +188,7 @@ class PetsControllerTest {
             + "\"Description\": \"Playful cat but a little unsociable\",\n"
             + "\"Race\": \"Orange cat\"}";
 
-    mockMvc
+    mockController
         .perform(
             MockMvcRequestBuilders.put("/api/as/pets/2")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -196,6 +202,6 @@ class PetsControllerTest {
   void deletePets() throws Exception {
     doNothing().when(petsService).deletePets(1);
 
-    mockMvc.perform(MockMvcRequestBuilders.delete("/api/as/pets/1")).andExpect(status().isOk());
+    mockController.perform(MockMvcRequestBuilders.delete("/api/as/pets/1")).andExpect(status().isOk());
   }
 }

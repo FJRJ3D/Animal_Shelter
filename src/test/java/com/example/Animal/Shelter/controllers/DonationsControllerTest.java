@@ -72,13 +72,13 @@ class DonationsControllerTest {
     @Test
     void createDonations() {
 
-        when(donationsService.createDonations(any(Donations.class))).thenReturn(donorBruce);
+       when(donationsService.createDonations(any(Donations.class))).thenReturn(donorBruce);
 
         Donations result = donationsController.createDonations(donorBruce);
 
         assertNotNull(result);
-        assertEquals(1, result.getId());
-        assertEquals(20000, result.getQuantity());
+        assertEquals(donorBruce.getId(), result.getId());
+        assertEquals(donorBruce.getQuantity(), result.getQuantity());
         assertEquals(LocalDate.of(2024, 06, 24), result.getDate());
         assertEquals("Bruce Wayne", result.getDonor());
     }

@@ -74,7 +74,7 @@ class DonationControllerTest {
     @Test
     void getAllDonations() throws Exception{
         when(donationService.getAllDonations()).thenReturn(donationsList);
-        mockMvc.perform(get("/api/as/Donations"))
+        mockMvc.perform(get("/api/v1/donations/get"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json"))
             .andExpect(jsonPath("$[0].id").value(1))
@@ -90,7 +90,7 @@ class DonationControllerTest {
     @Test
     void getDonationsById() throws Exception{
         when(donationService.getDonationsbyId(1)).thenReturn(Optional.of(donorBruce));
-        mockMvc.perform(get("/api/as/Donations/1"))
+        mockMvc.perform(get("/api/v1/donations/get/1"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json"))
             .andExpect(jsonPath("$.id").value(1))
@@ -108,7 +108,7 @@ class DonationControllerTest {
         updatedDonations.setDonor("Bruce Wayne");
 
 
-        mockMvc.perform(put("/api/as/Donations/1")
+        mockMvc.perform(put("/api/v1/donations/put/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":1,\"quantity\":40000.0,\"date\":\"12-05-2024\",\"donor\":\"Bruce Wayne\"}"))
                 .andExpect(status().isOk());
@@ -121,7 +121,7 @@ class DonationControllerTest {
     void deleteDonations() throws Exception {
         doNothing().when(donationService).deleteDonations(2);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/as/Donations/2")).andExpect(status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/donations/delete/1")).andExpect(status().isOk());
     }
 
 }

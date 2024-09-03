@@ -92,7 +92,7 @@ class PetControllerTest {
 
     //Testeo el controller
     mockController
-        .perform(post("/api/as/pets").contentType(MediaType.APPLICATION_JSON).content(petsJson))
+        .perform(post("/api/v1/news/post").contentType(MediaType.APPLICATION_JSON).content(petsJson))
         .andExpect(status().isOk())
         .andExpect(
             content()
@@ -116,7 +116,7 @@ class PetControllerTest {
     when(petService.getAllPets()).thenReturn(petsList);
 
     mockController
-        .perform(MockMvcRequestBuilders.get("/api/as/pets"))
+        .perform(MockMvcRequestBuilders.get("/api/v1/news/get"))
         .andExpect(status().isOk())
         .andExpect(
             content()
@@ -156,7 +156,7 @@ class PetControllerTest {
   void getPetsById() throws Exception {
     when(petService.getPetsById(anyInt())).thenReturn(Optional.ofNullable(petLolo));
     mockController
-        .perform(MockMvcRequestBuilders.get("/api/as/pets/1"))
+        .perform(MockMvcRequestBuilders.get("/api/v1/news/get/1"))
         .andExpect(status().isOk())
         .andExpect(
             content()
@@ -189,7 +189,7 @@ class PetControllerTest {
 
     mockController
         .perform(
-            MockMvcRequestBuilders.put("/api/as/pets/2")
+            MockMvcRequestBuilders.put("/api/v1/news/put/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(updatePetsJson))
         .andExpect(status().isOk());
@@ -201,6 +201,6 @@ class PetControllerTest {
   void deletePets() throws Exception {
     doNothing().when(petService).deletePets(1);
 
-    mockController.perform(MockMvcRequestBuilders.delete("/api/as/pets/1")).andExpect(status().isOk());
+    mockController.perform(MockMvcRequestBuilders.delete("/api/v1/news/delete/1")).andExpect(status().isOk());
   }
 }

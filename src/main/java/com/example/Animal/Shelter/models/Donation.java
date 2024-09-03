@@ -19,6 +19,14 @@ public class Donation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
-    private String donation;
+
+    @Column(name = "Quantity")
+    private double quantity;
+
+    @Column(name = "Date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private LocalDate date = LocalDate.now();
+
+    @Column(name = "Donor")
+    private String donor;
 }

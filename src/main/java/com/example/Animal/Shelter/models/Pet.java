@@ -22,13 +22,36 @@ public class Pet {
   @Column (name = "id", nullable = false)
   private int id;
 
-  @Column(name = "title", nullable = false)
-  private String title;
+  @Column(name = "Name")
+  private String name;
 
-  @Column(columnDefinition = "LONGTEXT")
-  private String urlImg;
+  @Column(name = "Picture")
+  private String picture;
 
-  @Column(name = "Description", columnDefinition = "LONGTEXT", nullable = false)
+  @Column(name = "Animal Type")
+  private String animalType;
+
+  @Column(name = "Race")
+  private String race;
+
+  @Column(name = "Gender")
+  private boolean gender;
+
+  @Column(name = "Status")
+  private boolean status;
+
+  @Column(name = "Birth Date")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+  private LocalDate birthDate;
+
+  @Column(name = "Sterilized")
+  private boolean sterilized;
+
+  @Column(name = "Time in the Shelter")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+  private LocalDate timeInTheShelter;
+
+  @Column(name = "Description")
   private String description;
 
   @ManyToOne(fetch = FetchType.LAZY)

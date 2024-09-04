@@ -90,7 +90,7 @@ mvn test
 
 ##  🤝 Contributions
 
-This project was developed collaboratively by[[FJRJ3D](https://github.com/FJRJ3D), [jmco1999](https://github.com/jmcp1999), [Krisel1](https://github.com/Krisel1) and [EvaMartinez94](https://github.com/EvaMartinez94). Contributions are welcome! Please fork this repository, create a new branch for your feature or bugfix, and submit a pull request.
+This project was developed collaboratively by [FJRJ3D](https://github.com/FJRJ3D), [jmco1999](https://github.com/jmcp1999), [Krisel1](https://github.com/Krisel1) and [EvaMartinez94](https://github.com/EvaMartinez94). Contributions are welcome! Please fork this repository, create a new branch for your feature or bugfix, and submit a pull request.
 
 ## 📜 License
 
